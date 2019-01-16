@@ -2,19 +2,15 @@
 
 (()=>{
 
-    const liveuser ={
+    const homePageComponent ={template:"<h2>youre one the home page</h2>" };
+    const userPageComponent ={template:"<h2>youre one the user page</h2>" };
+    const routes =[
+  { path:'/',name:'home',component:homePageComponent},
+        { path:'/users',name: 'users',component:userPageComponent},
 
-        props:['name','character','age'],//user 被改成name 可以改任意 跟前面呼应
-        template:"#activeuser", //每一条后面要有一个逗号
-        methods:{logChildMsg(){alert('hello from the child compnentes');},
-                 runParentFun(){this.$emit('pass-func-call-up','hello from the child on cilck')}
-                 //emit(里面加逗号 可以再写一条)
-                 
-                
-                },
-        created:function(){console.log('child component is live');}
-    };
-
+    ]
+      
+    const router = new VueRouter({routes});
   const vm = new Vue({
     el:'#app',
     data:{message: "sup feom vue"},
@@ -26,7 +22,10 @@
 },
     
 
-    components:{user:liveuser}
+    components:{"homePageComponent":homePageComponent,
+                "userPageComponent":userPageComponent
+},
+    router:router
 
 
 

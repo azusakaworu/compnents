@@ -9,54 +9,19 @@
   <!--https://vuejs.org/v2/guide/installation.html  CDN  firefox add vue add-ons extensions-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.2/vue-router.min.js"></script>
+    <!--https://cdnjs.com/libraries/vue-router copy最后一个min.js-->
 </head>
 <body>
    
     <main>
-        <!--nav>ul.main-nav>li.nav-item*4^^article-->
-        <nav>
-            <ul class="main-nav">
-                <li class="nav-item">Home</li>
-                <li class="nav-item">Users</li>
-                <li class="nav-item">Portfolio</li>
-                <li class="nav-item">Contact</li>
-            </ul>
-        </nav>
-        <article>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi iusto accusantium neque blanditiis omnis laborum, numquam ipsam delectus amet quo repellat repellendus provident eos adipisci doloribus 
-            distinctio reprehenderit perferendis fugit.
-            
-            Recusandae assumenda in maxime quas sit perferendis, illo soluta iure quidem laborum earum ipsa minus deserunt? Qui accusamus sunt eaque veritatis perspiciatis iusto veniam! Amet, eius assumenda! Quia, ducimus facere?
-        <!--view toogle word wamp 一行分多行  -->
-
-        </article>  
-         <h3>Our Team</h3>
-        <hr><!--hr 是分界线 很好用 -->
-         <!--main>div#app>liveuser-->
         <div id="app">
-            <user name="lingD" age="23" character="every is good" @pass-func-call-up="logMainMessage"></user>
-
-            <user name="孙悟空" age="800" character="正义性子急一心保护师傅"></user>
-            <user name="猪八戒" age="不明" character="猪耳朵可以飞起来"></user>
-            <user name="沙僧" age="不明" character="这说不好，这不好说"></user>
-            <user name="白龙马" age="200" character="大师兄，师傅被抓走了！"></user>
-           <!-- 老师把这的liveuser改成了user?-->
+            <router-view></router-view>
         </div>
     </main>
 
     <!--templates goes here-->
-    <template id="activeuser">
-        <!--创建div 写里面 花括号 里添加-->
-        <div>
-            
-            <h3>{{ name }}</h3>
-            <button v-on:click="logChildMsg">log child click</button>
-            <button v-on:click="runParentFun">run a parent function</button>
-            <p>{{ age }}&nbsp;&nbsp;{{ character }}</p> 
-            <!--一个花括号里只能包一个 花括号可以并列-->
-        </div>
-    </template>
+  
 
     <script src="js/main.js"></script>
 </body>
