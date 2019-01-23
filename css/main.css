@@ -1,0 +1,13 @@
+/* css */
+/* vue 的页面过渡效果 */
+.fade-enter-active, .fade-leave-active{
+transition-duration: 0.5s;
+transition-property: opacity;
+transition-timing-function:ease;
+}
+
+.fade-enter, .fade-leave-active{
+    opacity: 0;
+}
+
+.link{color:black;text-decoration: none;}

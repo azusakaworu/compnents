@@ -4,11 +4,17 @@
 
     const homePageComponent ={template:"<h2>youre one the home page</h2>" };
     const userPageComponent ={template:"<h2>youre one the user page</h2>" };
-    const routes =[
-  { path:'/',name:'home',component:homePageComponent},
-        { path:'/users',name: 'users',component:userPageComponent},
+    const contactPageComponent ={template:"<h2>youre one the contact page</h2>" };
+    const ErrorPageComponent ={template:"<h2>page not found! lease try again" };
 
-    ]
+    const routes =[
+         { path:'/',name:'home',component:homePageComponent},
+         { path:'/users',name: 'users',component:userPageComponent},
+         { path:'/contact',name: 'contact',component:contactPageComponent},
+         { path:'/*',name: 'error',component:ErrorPageComponent}
+
+
+    ];
       
     const router = new VueRouter({routes});
   const vm = new Vue({
@@ -24,6 +30,8 @@
 
     components:{"homePageComponent":homePageComponent,
                 "userPageComponent":userPageComponent
+                //可以不写contactpage
+                
 },
     router:router
 
