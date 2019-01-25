@@ -16,14 +16,15 @@
    
     <main>
         <div id="app">
-              <!-- <router-link :to="{path:'/'}" class="link">Home</router-link>
+              <router-link :to="{path:'/'}" class="link">Home</router-link>
               <router-link :to="{ path: '/users'}">Users<router-link>
-             <a href="#/contact">Contact</a> -->
+              <a href="#/contact">Contact</a>
+<!-- 
              <nav>
                     <li><a href="#/">home</a></li>
                     <li><a href="#/users">users</a></li>
                  <li><a href="#/contact">Contact</a></li>
-             </nav>
+             </nav> -->
              
              
             <transition name="fade" mode="out-in">
@@ -34,7 +35,13 @@
     </main>
 
     <!--templates goes here-->
-  
+  <template id="userList">
+      <div>
+          <h3>Current User:
+              <span v-if ="users.length > 0">{{ users[0].first_name}}  {{ users[0].last_name}}</span>
+          </h3>
+      </div>
+  </template>
 
     <script src="js/main.js"></script>
 </body>
