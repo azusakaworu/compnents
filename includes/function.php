@@ -1,6 +1,7 @@
-<?php //3
+<?php //2
 
 include 'connect.php';
+
 function get_single_user($pdo,$user){
     $query = "SELECT * FROM tbl_users WHERE id = '$user'";
     $get_users = $pdo->query($query);
@@ -11,7 +12,7 @@ function get_single_user($pdo,$user){
     return $results;
 }
 
-function get_all_user($pdo){
+function get_all_users($pdo){
     
     $query = "SELECT * FROM tbl_users";
     $get_users = $pdo->query($query);

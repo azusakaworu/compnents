@@ -1,8 +1,11 @@
 //js
 
-(()=>{
+
 
     const homePageComponent ={template:"<h2>youre one the home page</h2>" };
+
+
+
     const userPageComponent ={
       props:['id'],
       template:"#userList",
@@ -10,6 +13,7 @@
       data:function(){
         return{users:[]}
       },
+
       created:function(){console.log("user component created!");
        this.fetchUserData(this.id);
     },
@@ -21,26 +25,33 @@
         fetch(url)
           .then(res =>res.json())
           .then(data =>this.users.data)
-          .catch(function(error){
-            console.error(error);
+          .catch(function(error) {
+                    console.log(error);
           });
           
           
             }}
     };
     const contactPageComponent ={template:"<h2>youre one the contact page</h2>" };
-    const ErrorPageComponent ={template:"<h2>page not found! lease try again" };
+    const ErrorPageComponent ={template:"<h2>page not found! lease try again</h2>" };
 
     const routes =[
-         { path:'/',name:'home',component:homePageComponent},
-         { path:'/users:id',name: 'users',component:userPageComponent,props:true},
-         { path:'/contact',name: 'contact',component:contactPageComponent},
-         { path:'/*',name: 'error',component:ErrorPageComponent}
+         { path:'/',          name:'home',    component:homePageComponent},
+         { path:'/users:id',  name: 'users',  component:userPageComponent,props:true},
+         { path:'/contact',   name: 'contact',component:contactPageComponent},
+         { path:'/*',         name: 'error',  component:ErrorPageComponent}
 
 
     ];
+
+
       
     const router = new VueRouter({routes});
+
+
+
+
+
   const vm = new Vue({
     el:'#app',
     data:{message: "sup feom vue"},
@@ -63,5 +74,4 @@
 
 
 
-  })
-})();
+  });
