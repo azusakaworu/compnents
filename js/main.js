@@ -1,77 +1,89 @@
-//js
-
-
-
-    const homePageComponent ={template:"<h2>youre one the home page</h2>" };
-
-
-
-    const userPageComponent ={
-      props:['id'],
-      template:"#userList",
-      //this always needs to be a function in a component
-      data:function(){
-        return{users:[]}
-      },
-
-      created:function(){console.log("user component created!");
-       this.fetchUserData(this.id);
-    },
-
-      methods:{fetchUserData(user){
-        debugger;
-        let url = `./includes/index.php?user=${user}`;
-
-        fetch(url)
-          .then(res =>res.json())
-          .then(data =>this.users.data)
-          .catch(function(error) {
-                    console.log(error);
-          });
-          
-          
-            }}
+(() => {
+    // component will go here
+    const HomePageComponent = {
+        template: "<h2>You're on the home page</h2>"
     };
-    const contactPageComponent ={template:"<h2>youre one the contact page</h2>" };
-    const ErrorPageComponent ={template:"<h2>page not found! lease try again</h2>" };
 
-    const routes =[
-         { path:'/',          name:'home',    component:homePageComponent},
-         { path:'/users:id',  name: 'users',  component:userPageComponent,props:true},
-         { path:'/contact',   name: 'contact',component:contactPageComponent},
-         { path:'/*',         name: 'error',  component:ErrorPageComponent}
+    const UsersPageComponent = {
+        props: ['id'], // this.id
+        template: "#userList",
 
+        // this always needs to be a function in a component
+        data: function() {
+            return {
+                users: []
+            }
+        },
 
+        created: function() {
+            console.log('user component created!');
+
+            // take the query parameter from the route and pass it to the fetchUserData method
+
+            this.fetchUserData(this.id);
+        },
+
+        methods: {
+            fetchUserData(user) {
+                debugger;
+
+                let url = `./includes/index.php?users=${user}`;
+
+                fetch(url)
+                    .then(res => res.json())
+                    .then(data => this.users = data)
+                .catch(function(error) {
+                    console.error(error);
+                });
+            }
+        }
+    };
+
+    const ContactPageComponent = {
+        template: "<h2>You're on the contact page</h2>"
+    };
+
+    const ErrorPageComponent = {
+        template: "<h2>Page not found! Please try again</h2>"
+    };
+
+    const routes = [
+        { path: '/', name: 'home', component: HomePageComponent },
+        { path: '/users/:id', name: 'users', component: UsersPageComponent, props: true },
+        { path: '/contact', name: 'contact', component: ContactPageComponent },
+        { path: '/*', name: 'error', component: ErrorPageComponent }
     ];
 
+    const router = new VueRouter({
+        routes
+    });
 
-      
-    const router = new VueRouter({routes});
+    const vm = new Vue({
+        el: '#app',
 
+        data: {
+            message: "sup from vue!"
+        },
 
+        created: function() {
+            console.log('parent is live');
+        },
 
+        methods: {
+            logParent(message) {
+                console.log("from the parent", message);
+            },
 
+            logMainMessage(message) {
+                console.log("called from inside a child, lives in the parent", message);
+            }
+        },
 
-  const vm = new Vue({
-    el:'#app',
-    data:{message: "sup feom vue"},
-    created:function(){console.log('parent is live');},
+        components: {
+            'HomePageComponent': HomePageComponent,
+            'UsersPageComponent': UsersPageComponent
+        },
 
-    methods:{logParent(message){console.log("from the parent!", message);},
-    logMainMessage(message){alert("called fro inside a child lives in the parent我是logMainMessage函数里的代码",message);}
-    //logMainMessage函数里面加message形参 alert里面加一个message
-},
-    
-
-    components:{"homePageComponent":homePageComponent,
-                "userPageComponent":userPageComponent
-                //可以不写contactpage
-                
-},
-    router:router
-
-
-
-
-
-  });
+        router: router
+    })
+})();
