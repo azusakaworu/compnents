@@ -1,57 +1,16 @@
-(() => {
+
     // component will go here
-    const HomePageComponent = {
-        template: "<h2>You're on the home page</h2>"
-    };
-
-    const UsersPageComponent = {
-        props: ['id'], // this.id
-        template: "#userList",
-
-        // this always needs to be a function in a component
-        data: function() {
-            return {
-                users: []
-            }
-        },
-
-        created: function() {
-            console.log('user component created!');
-
-            // take the query parameter from the route and pass it to the fetchUserData method
-
-            this.fetchUserData(this.id);
-        },
-
-        methods: {
-            fetchUserData(user) {
-                debugger;
-
-                let url = `./includes/index.php?users=${user}`;
-
-                fetch(url)
-                    .then(res => res.json())
-                    .then(data => this.users = data)
-                .catch(function(error) {
-                    console.error(error);
-                });
-            }
-        }
-    };
-
-    const ContactPageComponent = {
-        template: "<h2>You're on the contact page</h2>"
-    };
-
-    const ErrorPageComponent = {
-        template: "<h2>Page not found! Please try again</h2>"
-    };
+    import LoginComponent from './components/LoginComponent.js';//跟php include作用一样
+  import UsersComponent from './components/UsersComponent.js';
 
     const routes = [
-        { path: '/', name: 'home', component: HomePageComponent },
-        { path: '/users/:id', name: 'users', component: UsersPageComponent, props: true },
-        { path: '/contact', name: 'contact', component: ContactPageComponent },
-        { path: '/*', name: 'error', component: ErrorPageComponent }
+        
+
+          { path: '/login', redirect:{name:'login'} },
+      
+         { path: '/login', name: 'login', component: LoginComponent },
+         { path: '/users', name: 'users', component: UsersComponent }
+      
     ];
 
     const router = new VueRouter({
@@ -59,10 +18,13 @@
     });
 
     const vm = new Vue({
-        el: '#app',
+       // el: '#app', 这不写了 挪到最下面去
 
         data: {
-            message: "sup from vue!"
+            message: "sup from vue!",
+            authenticated:false,
+            makeAccount:{username:"ling",password:"azusa"},
+
         },
 
         created: function() {
@@ -76,14 +38,22 @@
 
             logMainMessage(message) {
                 console.log("called from inside a child, lives in the parent", message);
-            }
-        },
+            },
 
-        components: {
-            'HomePageComponent': HomePageComponent,
-            'UsersPageComponent': UsersPageComponent
+            setAuthenticated(status){this.authenticated = status;},
+            logout(){this.authenticated = false}
+           
         },
+        
+
+       
 
         router: router
-    })
-})();
+    }).$mount("#app");
+
+
+    router.beforeEach((to,from,next)=>{
+        console.log("router guard fired");
+        if(vm.authenticated == false){next("login");}else{next();}
+    });
+

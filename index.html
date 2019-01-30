@@ -14,29 +14,17 @@
 <body>
     <main>
         <div id="app">
-            <router-link :to="{ path: '/'}" class="link">Home</router-link>
-            <router-link :to="{ path: '/users' }">Users</router-link>
-            <a href="#/contact">Contact</a>
+            <router-link v-if ="authenticated" to="/login" @click.native="logout()">Log Out</router-link>
+           
             <!-- the router view element is where the components get rendered when changing the address bar (the route) -->
             <transition name="fade" mode="out-in">
-                <router-view></router-view>
+                <router-view @authenticated ="setAuthenticated"></router-view>
             </transition>
            
         </div>
     </main>
 
-    <!-- templates -->
-    <template id="userList">
-        <div>
-            <h3>Current User:
-                <!-- make sure that your data is actually there before you try to render it-->
-                <span v-if="users.length > 0">
-                    {{ users[0].first_name }} {{ users[0].last_name }}
-                </span>
-            </h3>
-        </div>
-    </template>
-    
-    <script src="js/main.js"></script>
+   
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>
